@@ -1,0 +1,30 @@
+<!--pages/forum/create.wxml-->
+<view wx:if="{{!uid}}" style='position:fixed;width:100%;height:100%;background:#f2f2f2;z-index:99999;'>
+	<button class='blockbutton yellow' bindgetuserinfo='btnGetUserInfo' open-type='getUserInfo' style='border:none;line-height:150px;width:150px;height:150px;border-radius:75px;margin-top:100px;'>登录</button>
+</view>
+<view style='width:100%;background: #fff;padding:0px 20px;'>
+	<textarea bindinput='textAreaInput' maxlength="10000" placeholder="说点儿什么吧" name="textarea" auto-height='true' style="width:100%;background: #fff;font-size:14px;padding-top:20px;" />
+	<view style="width:100%;margin-top:20px;background:#fff;">
+    <view class="weui-uploader">
+        <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="img_{{index}}">
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                    </view>
+                </block>
+            </view>
+            <view wx:if="{{files.length<maxfile}}" class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+            </view>
+        </view>
+    </view>
+  </view>
+  <view style="width:100%;height:1px;background:#ccc;margin-top:10px;"></view>
+  <view bindtap='btnChooseLocation' style="width:100%;height:40px;line-height:40px;font-size:14px;">
+    <text style='float:left;width:250px;text-overflow:ellipsis;white-space:nowrap; overflow:hidden; '>{{gpsaddr}}</text><view class="weui-cell__ft weui-cell__ft_in-access" style='margin-top:20px;float:right;'></view>
+  </view>
+</view>
+<view style='width:100%;padding:20px;'>
+    <view bindtap="btnPost" style='width:100%;height:44px;line-height:44px;text-align:center;color:#fff;background:#000;font-size:14px;border-radius:22px;'>确定发布</view>
+</view>

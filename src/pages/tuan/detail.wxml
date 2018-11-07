@@ -1,0 +1,102 @@
+<!--pages/shop/goodsdetail.wxml-->
+<import src="../../utils/template.wxml" />
+<view wx:if="{{!result.disablecomment}}" style="width:100%;background:#fff;position:fixed;z-index:9;bottom:0;font-size:14px;box-shadow:0px -4px 6px rgba(0,0,0,.1);border-top:#ccc 1px solid;">
+  <view style='background:#fff;'>
+    <view style='width:100%;font-size:14px;font-weight:bold;padding:10px;'>接龙商品
+    </view>
+    <view style="width:100%;height:1px;background:#f2f2f2;"></view>
+  </view>
+  <view>
+    <block wx:for="{{menu}}">
+      <view style='padding:5px 10px;border-bottom:#f2f2f2 1px solid;'>
+        <view class='weui-flex' style='width:100%;font-size:14px;height:44px;line-height:44px;'>
+          <view class='weui-flex__item'>{{item.name}}
+            <text style='font-size:12px;color:#666;'>（{{item.price}}元）</text>
+          </view>
+          <view class='weui-flex' style='width:60px;'>
+            <view id='{{index}}' bindtap='btnItemRemove' style='width:15px;text-align:center;'>-</view>
+            <view class='weui-flex__item'>
+              <input disabled='true' type='number' style='width:30px;height:44px;line-height:44px;text-align:center;' value='{{item.amount}}'></input>
+            </view>
+            <view id='{{index}}' bindtap='btnItemAdd' style='width:15px;text-align:center;'>+</view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class='weui-flex' style='width:100%;height:50px;line-height:50px;color:#fff;'>
+    <button open-type='share' plain='true' style='border:none;padding:none;text-align:center;border-radius:0;background:#ff66aa;width:100px;color:#fff;'>分享</button>
+    <form class='weui-flex__item' bindsubmit="btnJielongSubmit" report-submit='true'>
+      <button form-type='submit' plain='true' style="text-align:center;background:#ff3333;color:#fff;border-radius:0;border:none;height:100%;">提交接龙</button>
+    </form>
+  </view>
+</view>
+
+<scroll-view scroll-y='true' style='width:100%;height:100%;'>
+  <view style='width:100%;height:150px;'>
+    <image mode='aspectFill' src='{{result.pics[0]}}' style='width:100%;height:150px;'></image>
+  </view>
+  <view style="width:100%;background:#fff;">
+    <view style='width:100%;font-size:14px;font-weight:bold;padding:10px;'>最新加入
+      <text style="font-weight:normal;float:right;">总计{{result.commentcount}}人参与</text>
+    </view>
+    <view style="width:100%;height:1px;background:#f2f2f2;"></view>
+    <view>
+      <view wx:if="{{result.commentcount<=0}}" style='width:100%;height:100px;line-height:100px;text-align:center;font-size:12px;color:#999;'>快分享邀请邻居参与接龙吧</view>
+      <view wx:else style="font-size:14px;">
+        <block wx:for="{{commentlist}}">
+          <template is="jielongitem" data="{{...item}}"></template>
+        </block>
+        <view bindtap="btnLoadMore" wx:if="{{canloadmore}}" style="width:100%;font-size:16px;color:#999;text-align:center;padding:10px;">
+          点击显示更多
+        </view>
+      </view>
+    </view>
+    <view style='padding:5px 10px;font-size:12px;'>
+      <view class='weui-flex'>
+        <view class='weui-flex__item' style="color:#999;margin-right:20px;">浏览{{result.viewcount}}</view>
+        <view>
+          <text bindtap="btnEdit" style="font-size:12px;color:#999;">操作</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view style="padding:10px;width:100%;">
+    <navigator url="/pages/me/timeline?uid={{result.authorInfo.openid}}" class="weui-flex" style="width:100%;background:#fff;padding:10px;border-radius:10px;box-sizing:border-box;">
+      <view style="height:40px;">
+        <image src="{{result.authorInfo.headimg}}" style="width:40px;height:40px;border:#f2f2f2 1px solid;border-radius:20px;"></image>
+      </view>
+      <view class="weui-flex__item">
+        <view style="margin-left:10px;position:relative;">
+          <view style="font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+            {{result.authorInfo.nickname}}
+          </view>
+          <view style="font-size:12px;color:#666;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{result.timedistance}}发起此接龙</view>
+        </view>
+
+      </view>
+    </navigator>
+  </view>
+  <view style='background:#fff;'>
+    <view style='width:100%;font-size:14px;font-weight:bold;padding:10px;'>接龙说明
+    </view>
+    <view style="width:100%;height:1px;background:#f2f2f2;"></view>
+  </view>
+  <view style="width:100%;background:#fff;padding:10px;font-size:14px;">
+    <view>
+      <view style="margin-bottom:5px;">
+        <text>{{result.title}}</text>
+      </view>
+      <block wx:for='{{result.pics}}'>
+        <image id='li_{{index}}' bindtap='btnPicPreview' mode="widthFix" src="{{item}}" style="width:100%;"></image>
+      </block>
+    </view>
+    <view class="weui-flex" style='font-family:iconfont;font-size:14px;'>
+      <view bindtap='btnShowLocation' wx:if="{{result.gps!=''}}" style="color:#3498DB;text-overflow:ellipsis;white-space:nowrap; overflow:hidden;">
+        <view style='font-size:14px;color:#000;font-weight:bold;padding:10px 0px;'>取货地点</view>
+        {{result.gpscity}}{{result.gpscity==''?'':'·'}}{{result.gpsaddr}}
+      </view>
+    </view>
+  </view>
+  <view style="height:{{100+64*menu.length}}px;"></view>
+</scroll-view>

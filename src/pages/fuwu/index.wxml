@@ -1,0 +1,22 @@
+<!--pages/fuwu/index.wxml-->
+<view wx:if="{{isAdmin}}" style="width:100%;position:fixed;z-index:9;bottom:0px;padding:10px 20px;box-sizing:border-box;">
+  <view bindtap="btnCreate" style="width:100%;height:44px;border-radius:22px;line-height:44px;background:#000;color:#fff;text-align:center;font-size:14px;">新建一键呼叫</view>
+</view>
+<view style="width:100%;padding:10px 10px 60px 10px;">
+  <view class="weui-grids" style="margin-bottom:10px;background:#fff;">
+            <block wx:for="{{category}}">
+            <view id='{{item.type}}' bindtap="btnFilter" class="weui-grid {{item.type==type?'weui-grid_active':''}}">
+                    <view class="weui-grid__label">{{item.name}}</view>
+                </view>
+              </block>
+        </view>
+  <block wx:for="{{list}}">
+    <view id="{{index}}" bindtap="bindCall" style="width:100%;background:#fff;padding:10px;margin-bottom:10px;">
+      <view class='weui-flex__item' style="font-size:16px;font-weight:bold;">{{item.title}}</view>
+      <view wx:if="{{item.ownerInfo.type=='8'}}"><text style='font-size:10px;padding:4px 6px;background:#00aaff;color:#fff;border-radius:5px;'>业主认证</text></view>
+      <view wx:elif="{{item.ownerInfo.type=='7'}}"><text style='font-size:10px;padding:4px 6px;background:#ff6600;color:#fff;border-radius:5px;'>店长认证</text></view>
+      <view style="font-size:14px;color:#999;">{{item.text}}</view>
+      <view style="font-size:14px;margin-top:10px;">呼叫服务：{{item.telephone}}</view>
+    </view>
+  </block>
+</view>

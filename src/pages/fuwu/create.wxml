@@ -1,0 +1,20 @@
+<!--pages/forum/create.wxml-->
+<view style='width:100%;background: #fff;padding:0px 20px;'>
+  <view style="width:100%;height:10px;background:#fff;"></view>
+  <input bindinput="titleInput" maxlength='50' style="width:100%;background: #fff;font-size:14px;height:40px;line-height:40px;" placeholder="服务项目标题" value='{{titleValue}}'/>
+	<view style="width:100%;height:1px;background:#ccc;"></view>
+  <view style='height:20px;'></view>
+  <textarea maxlength="1000" bindinput='phoneAreaInput' placeholder="电话号码，英文逗号区隔" name="textarea" auto-height='true' style="width:100%;background: #fff;font-size:14px;" value='{{phoneValue}}'/>
+  <view style='height:20px;'></view>
+  <view style="width:100%;height:1px;background:#ccc;"></view>
+  <view style='height:20px;'></view>
+  <textarea maxlength="5000" bindinput='textAreaInput' placeholder="服务项目内容介绍" name="textarea" auto-height='true' style="width:100%;background: #fff;font-size:14px;" value='{{textValue}}'/>
+  <view style='height:20px;'></view>
+  <view style="width:100%;height:1px;background:#ccc;"></view>
+  <input bindinput="typeInput" maxlength='5' style="width:100%;background: #fff;font-size:14px;height:40px;line-height:40px;" placeholder="类型（数字）" value='{{typeValue}}'/>
+  <view style='height:60px;'></view>
+</view>
+
+<view style='width:100%;padding:20px;'>
+    <view bindtap="btnPost" style='width:100%;height:44px;line-height:44px;text-align:center;color:#fff;background:#000;font-size:14px;border-radius:22px;'>发布一键呼叫</view>
+</view>

@@ -1,0 +1,77 @@
+{
+  "pages": [
+    "pages/billboard/index",
+    "pages/billboard/history",
+    "pages/billboard/create",
+    "pages/fuwu/index",
+    "pages/fuwu/detail",
+    "pages/fuwu/create",
+    "pages/forum/index",
+    "pages/forum/topiclist",
+    "pages/forum/detail",
+    "pages/forum/create",
+    "pages/book/index",
+    "pages/book/create",
+    "pages/book/detail",
+    "pages/talent/index",
+    "pages/talent/list",
+    "pages/talent/goodsdetail",
+    "pages/talent/create",
+    "pages/talent/ownernotice",
+    "pages/talent/coinexchange",
+    "pages/coincenter/index",
+    "pages/coincenter/history",
+    "pages/me/timeline",
+    "pages/me/me",
+    "pages/me/userlist",
+    "pages/pk/index",
+    "pages/pk/create",
+    "pages/pk/detail",
+    "pages/pk/werun",
+    "pages/livecam/index",
+    "pages/livecam/detail",
+    "pages/webview/index",
+    "pages/tuan/index",
+    "pages/tuan/detail",
+    "pages/tuan/create",
+    "pages/me/login"
+  ],
+  "window": {
+    "backgroundColor": "#f2f2f2",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "backgroundColor": "#fff",
+    "color": "#000",
+    "borderStyle": "black",
+    "selectedColor": "#55D98D",
+    "list": [
+      {
+        "pagePath": "pages/billboard/index",
+        "iconPath": "images/forum.png",
+        "selectedIconPath": "images/forum_1.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/talent/index",
+        "iconPath": "images/shop.png",
+        "selectedIconPath": "images/shop_1.png",
+        "text": "市集"
+      },
+      {
+        "pagePath": "pages/forum/index",
+        "iconPath": "images/manage.png",
+        "selectedIconPath": "images/manage_1.png",
+        "text": "生活"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "iconPath": "images/me.png",
+        "selectedIconPath": "images/me_1.png",
+        "text": "我"
+      }
+    ]
+  }
+}

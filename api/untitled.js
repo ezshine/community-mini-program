@@ -1,0 +1,1 @@
+javascript:if(window.location.href.indexOf('https://y.qq.com/player')<0)window.location='https://y.qq.com';function downloadFile(fileName, url){var file="<a href='"+url+"' download='aaa.zip'>下载</a>";var win=window.open('','_blank');win.document.write(file);};downloadFile(document.querySelector("#sim_song_info").innerText+".m4a",document.querySelector("#h5audio_media").src);

@@ -1,0 +1,7 @@
+/* pages/me/timeline.wxss */
+page{
+  background: #f2f2f2;
+}
+view{
+  box-sizing: border-box;
+}

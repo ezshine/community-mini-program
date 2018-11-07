@@ -1,0 +1,15 @@
+/* pages/fuwu/index.wxss */
+page
+{
+  background: #f2f2f2;
+}
+.weui-grid
+{
+  height:40px;
+  line-height: 40px;
+  padding:0px;
+}
+.weui-grid__label
+{
+  margin-top: 0px;
+}

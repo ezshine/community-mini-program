@@ -1,0 +1,83 @@
+<!--pages/shop/goodsdetail.wxml-->
+<import src="../../utils/template.wxml" />
+ <view wx:if="{{!result.disablecomment}}" class="weui-flex" style="width:100%;height:40px;background:#fff;position:fixed;bottom:0;font-size:14px;box-shadow:0px -1px 4px #eee;">
+  <input bindinput="commentInput" class="weui-flex__item" type="text" placeholder="告诉大家你对TA的评价吧~" style="padding:0px 10px;line-height:40px;height:40px;" value='{{commentstr}}'/>
+  <view bindtap="btnPostComment" style="text-align:center;width:80px;height:100%;line-height:40px;background:#55D98D;color:#fff">
+    提交
+  </view>
+</view> 
+<view style="background:#fff;padding:0px 10px;padding-top:10px;width:100%;">
+  <view class="weui-flex" style="width:100%;">
+    <navigator url="/pages/me/timeline?uid={{result.authorInfo.openid}}" style="height:40px;">
+      <image src="{{result.authorInfo.headimg}}" style="width:40px;height:40px;border:#f2f2f2 1px solid;border-radius:20px;"></image>
+    </navigator>
+    <view class="weui-flex__item">
+      <view style="margin-left:10px;position:relative;">
+        <view style="font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+          {{result.authorInfo.nickname}}
+        </view>
+        <view style="font-size:12px;color:#666;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"><text wx:if="{{result.authorInfo.type=='8'}}"><text style='font-size:9px;padding:4px 6px;background:#00aaff;color:#fff;border-radius:5px;margin-right:5px;'>业主认证</text></text>
+      <text wx:elif="{{result.authorInfo.type=='7'}}"><text style='font-size:9px;padding:4px 6px;background:#ff6600;color:#fff;border-radius:5px;margin-right:5px;'>店长认证</text></text>{{result.timedistance}}发布</view>
+      </view>
+
+    </view>
+    <view wx:if="{{result.price>0}}" style="color:#ff0000;font-size:24px;text-align:right;"><text style="font-size:12px;">￥</text>{{result.price}}<text style="font-size:12px;">/{{result.unit}}</text></view>
+    <view wx:else style="color:#ff0000;font-size:24px;text-align:right;"><text style="font-size:12px;">价格待议</text></view>
+  </view>
+</view>
+<view style="width:100%;background:#fff;padding:10px;font-size:14px;">
+  <view>
+    <view style="margin-bottom:10px;">
+      <text>{{result.text}}</text>
+    </view>
+    <block wx:for='{{result.pics}}'>
+      <image mode="widthFix" src="{{item}}" style="width:100%;margin-bottom:10px;"></image>
+    </block>
+  </view>
+  <view class="weui-flex">
+    <view class="weui-flex__item">
+      <view style="font-size:12px;color:#999;">浏览{{result.viewcount}}</view>
+    </view>
+    <view>
+      <text bindtap="btnEdit" style="font-size:12px;color:#999;">操作</text>
+    </view>
+  </view>
+</view>
+<view class="weui-flex" style="width:100%;padding:10px 20px;margin-top:10px;">
+  <view class="weui-flex_item" bindtap="btnCall" style="width:100%;height:44px;line-height:44px;background:#55D98D;color:#fff;text-align:center;font-size:14px;border-radius:22px;font-family:iconfont;border-bottom:rgba(0,0,0,.2) 2px solid;"><text class='iconfont icon-call' style='margin-right:5px;'></text>联系店长</view>
+</view>
+<view wx:if="{{result.exchangecoin>0}}" class="weui-flex" style="width:100%;padding:10px 20px;">
+  <view class="weui-flex_item" bindtap="btnExchange" style="width:100%;height:44px;line-height:44px;background:#ff3366;color:#fff;text-align:center;font-size:14px;border-radius:22px;border-bottom:rgba(0,0,0,.2) 1px solid;">{{result.exchangecoin}}积分可兑换{{result.exchangeprice}}元</view>
+</view>
+<view style="width:100%;margin-top:10px;background:#fff;">
+  <view class='weui-flex'>
+    <view class='weui-flex__item' style='width:100%;font-size:14px;font-weight:bold;padding:10px;'>店长通知<text style='font-size:12px;color:#999;'>（{{result.likecount}}人订阅）</text></view>
+    <view style='margin-top:5px;'><switch bindchange='btnLike' checked='{{result.isliked}}'></switch></view>
+  </view>
+  <view style="width:100%;height:1px;background:#f2f2f2;"></view>
+  <view wx:if="{{result.likecount>0}}" class='weui-flex' style='width:100%;padding:10px;flex-wrap:wrap;'>
+    <block wx:for="{{result.likelist}}">
+      <view style='width:30px;margin-right:4px;margin-bottom:4px;'>
+        <image mode='aspectFill' src='{{item.authorInfo.headimg}}' style='width:30px;height:30px;border-radius:15px;'></image>
+        <view style='font-size:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:center;margin-top:-5px;'>{{item.authorInfo.nickname}}</view>
+      </view>
+    </block>
+  </view>
+  <view wx:if="{{isowner&&result.likecount>0}}" style='padding:10px;'><view  bindtap='btnSendNotice' style='width:150px;margin:0 auto;height:44px;line-height:44px;border-radius:22px;text-align:center;font-size:14px;background:#55D98D;color:#fff;border-bottom:rgba(0,0,0,.2) 2px solid;'>发送店长通知</view></view>
+</view>
+ <view wx:if="{{!result.disablecomment}}" style="width:100%;margin-top:10px;background:#fff;">
+  <view style='width:100%;font-size:14px;font-weight:bold;padding:10px;'>评价<text style="font-weight:normal;" wx:if="{{result.commentcount>0}}">{{result.commentcount}}</text></view>
+  <view style="width:100%;height:1px;background:#f2f2f2;"></view>
+  <view>
+    <view wx:if="{{result.commentcount<=0}}" style='width:100%;height:100px;line-height:100px;text-align:center;font-size:12px;color:#999;'>这里冷冷清清的，什么也没有...</view>
+    <view wx:else style="font-size:14px;">
+      <block wx:for="{{commentlist}}">
+        <template is="commentitem" data="{{...item}}"></template>
+      </block>
+      <view bindtap="btnLoadMore" wx:if="{{canloadmore}}" style="width:100%;font-size:16px;color:#999;text-align:center;padding:10px;">
+              点击加载更多
+        </view>
+    </view>
+  </view>
+</view> 
+<view style="height:60px;"></view>

@@ -1,0 +1,9 @@
+<view style="text-align:center;padding:10px 20px;font-size:14px;">
+  <view style="text-align:left;">
+    
+  </view>
+  <view style="text-align:right;font-family:Arial;margin-top:20px;">
+    
+  </view>
+</view>
+<view style="font-size:14px;width:100%;margin-top:50px;text-align:center;color:#999;">当前版本：{{version}}</view>

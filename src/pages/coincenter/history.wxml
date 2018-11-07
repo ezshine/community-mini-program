@@ -1,0 +1,17 @@
+<!--pages/coincenter/history.wxml-->
+<view>
+  <block wx:for="{{list}}">
+    <view class='weui-flex' style='padding:10px;height:60px;background:#fff;margin-bottom:1px;'>
+      <view class='weui-flex__item'>
+        <view style='font-size:14px;'>{{item.msg}}</view>
+        <view style='font-size:12px;'>{{item.createdate}}</view>
+      </view>
+      <view style='font-size:14px;line-height:40px;'>
+        {{item.value>=0?'+':''}}{{item.value}}
+      </view>
+    </view>
+  </block>
+  <view bindtap="btnLoadMore" wx:if="{{canloadmore}}" style="width:100%;font-size:16px;color:#999;text-align:center;padding:10px;">
+    点击加载更多
+  </view>
+</view>

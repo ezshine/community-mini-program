@@ -1,0 +1,44 @@
+<!--pages/talent/coinexchange.wxml-->
+<view style='padding:10px;background:#ffcc00;text-align:center;text-shadow:0px 1px 1px #fff;'>
+  <view>
+    <view style='padding:10px 0px;'>
+      <text style='font-size:24px;color:#000;'>{{goodsdetail.exchangecoin}}</text>
+      <text style='font-size:12px;'>分</text> =
+      <text style='font-size:24px;color:#000;'>{{goodsdetail.exchangeprice}}</text>
+      <text style='font-size:12px;'>元</text>
+    </view>
+  </view>
+  <view style='font-size:12px;'>积分余额：{{userInfo.coin}}</view>
+  <view style='font-size:12px;color:#333;margin-top:10px;'>
+    <text wx:if="{{goodsdetail.exchangedesc!=''}}">{{goodsdetail.exchangedesc}}\n</text>
+    <text>兑换规则的最终解释权归服务提供者所有</text>
+  </view>
+</view>
+<view class="weui-flex" style="width:100%;padding:10px 20px;">
+  <view wx:if='{{!isowner}}' class="weui-flex_item" bindtap="btnExchange" style="width:100%;height:44px;line-height:44px;background:#ff3366;color:#fff;text-align:center;font-size:14px;border-radius:22px;border-bottom:rgba(0,0,0,.2) 2px solid;">立即兑换</view>
+</view>
+<view style='padding:0px 10px;'>
+  <block wx:for="{{exchangehistory}}">
+    <view style='width:100%;font-size:12px;color:#fff;border:#ff3366 1px solid;margin-bottom:10px;'>
+      <view style='height:24px;line-height:24px;text-align:center;padding:0px 10px;color:#fff;background:#ff3366;'>创建于：{{item.createdate}}</view>
+      <view class='weui-flex' style='padding:10px 10px;background:#ffcc00;color:#000;font-size:24px;'>
+        <view class='weui-flex__item'>
+          <view class='weui-flex'>
+            <view><image mode='aspectFill' src='{{item.ownerInfo.headimg}}' style='width:50px;height:50px;border-radius:25px;'></image></view>
+            <view style='font-size:14px;margin-left:5px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;line-height:50px;'>{{item.ownerInfo.nickname}}</view>
+          </view>
+        </view>
+        <view class='weui-flex__item' style='text-align:right;text-shadow:0px 1px 1px #fff;'>
+          <view>{{item.exchangeprice}}<text style='font-size:12px;'>元</text></view>
+          <view style='font-size:14px;'>-{{item.exchangecoin}}积分</view>
+        </view>
+        <view id='tl_{{item.id}}' bindtap='btnOwnerReceive' wx:if='{{isowner&&!item.exchangetime}}' style='width:60px;color:#fff;background:#55D98D;border-radius:10px;font-size:12px;margin-left:10px;line-height:64px;text-align:center;'>确认</view>
+      </view>
+      <view wx:if='{{item.exchangetime}}' style='background:#ff3366;hieght:24px;line-height:24px;padding:0px 10px;text-align:center;'>完成兑换：{{item.exchangetime}}</view>
+      <view wx:else style='background:#ff3366;min-height:24px;line-height:24px;padding:0px 10px;text-align:center;'>等待店主确认...下拉刷新兑换状态</view>
+    </view>
+  </block>
+  <view bindtap="btnLoadMore" wx:if="{{canloadmore}}" style="width:100%;font-size:16px;color:#999;text-align:center;padding:10px;">
+    点击加载更多
+  </view>
+</view>

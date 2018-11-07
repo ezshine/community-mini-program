@@ -1,0 +1,27 @@
+<!--pages/book/detail.wxml-->
+<view style="width:100%;background:#fff;text-align:center;padding:0px 10px 10px 10px;">
+  <image mode="widthFix" src="{{result.detail.coverurl}}" style="width:150px;margin:0 auto;"></image>
+  <view style="font-size:14px;">{{result.detail.title}}</view>
+  <view wx:if="{{result.detail.author!=''}}" style="font-size:12px;color:#666;">作者：{{result.detail.author}}</view>
+  <view wx:if="{{result.detail.publisher!=''}}" style="font-size:12px;color:#666;">出版社：{{result.detail.publisher}}</view>
+  <view style="font-size:12px;color:#999;width:100%;max-height:100px;overflow:scroll;margin-top:5px;border:#ccc 1px solid;padding:5px;">{{result.detail.bookdesc}}</view>
+</view>
+<view style="margin-top:10px;background:#fff;padding:10px;">
+  <view style='font-size:14px;width:100%;text-align:center;'>可以向这些邻居借书</view>
+  <block wx:for='{{result.list}}'>
+    <view class="weui-flex" style="width:100%;padding-top:10px;padding-bottom:10px;border-bottom:#f2f2f2 1px solid;">
+      <navigator url="/pages/me/timeline?uid={{item.openid}}" style="height:40px;">
+        <image src="{{item.headimg}}" style="width:40px;height:40px;border:#f2f2f2 1px solid;border-radius:20px;"></image>
+      </navigator>
+      <view class="weui-flex__item">
+        <view style="margin-left:10px;">
+          <view style="font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+            {{item.nickname}}
+          </view>
+          <view style="font-size:12px;color:#666;">{{item.lastlogindistance}}登录过</view>
+        </view>
+      </view>
+      <view id='li_{{index}}' bindtap="btnCall" style="margin-top:5px;height:30px;border-radius:10px;color:#fff;padding:5px 10px;font-size:12px;background:#55D98D;">向TA借</view>
+    </view>
+  </block>
+</view>

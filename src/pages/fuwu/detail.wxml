@@ -1,0 +1,38 @@
+<!--pages/fuwu/detail.wxml-->
+<view style='width:100%;padding:10px;padding-bottom:176px;'>
+  <view style='width:100%;background:#fff;padding:10px;'>
+    <view style="font-size:16px;font-weight:bold;">{{result.title}}</view>
+      <view style='padding:10px 0px;'>
+        <block wx:for='{{telephones}}'>
+          <view id='{{index}}' bindtap='btnCall' style='width:100%;padding:5px 10px;background:#99ee99;color:#333;margin-bottom:5px;border-radius:10px;'><text class='iconfont icon-call'></text> {{item}}</view>
+        </block>
+      </view>
+      <navigator wx:if="{{result.ownerInfo}}" url="/pages/me/timeline?uid={{result.ownerInfo.openid}}" class="weui-flex" style="width:100%;background:#f2f2f2;padding:10px;border-radius:10px;box-sizing:border-box;margin-bottom:10px;">
+      <view style="height:40px;">
+        <image src="{{result.ownerInfo.headimg}}" style="width:40px;height:40px;border:#f2f2f2 1px solid;border-radius:20px;"></image>
+      </view>
+      <view class="weui-flex__item">
+        
+        <view style="margin-left:10px;position:relative;">
+          <view style="font-size:12px;color:#fff;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:3px;">
+            <view wx:if="{{result.ownerInfo.type=='8'}}"><text style='font-size:10px;padding:4px 6px;background:#00aaff;color:#fff;border-radius:5px;'>业主认证</text></view>
+      <view wx:elif="{{result.ownerInfo.type=='7'}}"><text style='font-size:10px;padding:4px 6px;background:#ff6600;color:#fff;border-radius:5px;'>店长认证</text></view>
+          </view>
+          <view style="font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+            {{result.ownerInfo.nickname}}
+          </view>
+        </view>
+
+      </view>
+    </navigator>
+      <view style="font-size:14px;color:#999;"><text>{{result.text}}</text></view>
+  </view>
+</view>
+<view style='position:fixed;bottom:0px;width:100%;padding:10px;'>
+      <view style=''>
+        <button open-type='share' style='width:100%;padding:10px;boder-radius:10px;'><text class='iconfont icon-forwarding' style='font-size:20px;'></text> 分享给其他邻居</button>
+      </view>
+      <view style='margin-top:10px;'>
+        <button bindtap='btnBackHome' style='width:100%;padding:10px;boder-radius:10px;'><text class='iconfont icon-home' style='font-size:20px;'></text> 返回小程序首页</button>
+      </view>
+</view>

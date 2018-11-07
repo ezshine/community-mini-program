@@ -1,0 +1,16 @@
+<!--pages/forum/create.wxml-->
+<view wx:if="{{!uid}}" style='position:fixed;width:100%;height:100%;background:#f2f2f2;z-index:99999;'>
+	<button class='blockbutton yellow' bindgetuserinfo='btnGetUserInfo' open-type='getUserInfo' style='border:none;line-height:150px;width:150px;height:150px;border-radius:75px;margin-top:100px;'>登录</button>
+</view>
+<view style='width:100%;background: #fff;padding:0px 20px;'>
+  <view style="width:100%;height:10px;background:#fff;"></view>
+  <input bindinput="titleInput" maxlength='50' style="width:100%;background: #fff;font-size:14px;height:40px;line-height:40px;" placeholder="例如：是否支持物业收取物业费" value='{{titleValue}}'/>
+	<view style="width:100%;height:1px;background:#ccc;"></view>
+  <view style='height:20px;'></view>
+  <textarea maxlength="1000" bindinput='textAreaInput' placeholder="详细介绍一下为何要发起该投票" name="textarea" auto-height='true' style="width:100%;background: #fff;font-size:14px;" value='{{textValue}}'/>
+  <view style='height:60px;'></view>
+</view>
+
+<view style='width:100%;padding:20px;'>
+    <view bindtap="btnPost" style='width:100%;height:44px;line-height:44px;text-align:center;color:#fff;background:#000;font-size:14px;border-radius:22px;'>发布投票</view>
+</view>

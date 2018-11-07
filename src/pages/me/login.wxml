@@ -1,0 +1,4 @@
+<!--pages/me/login.wxml-->
+<view style='position:fixed;width:100%;height:100%;background:#f2f2f2;z-index:99999;'>
+	<button class='blockbutton yellow' bindgetuserinfo='btnGetUserInfo' open-type='getUserInfo' style='border:none;line-height:150px;width:150px;height:150px;border-radius:75px;margin-top:100px;'>登录</button>
+</view>

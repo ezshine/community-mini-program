@@ -1,0 +1,23 @@
+<import src="../../utils/template.wxml" />
+<view class='weui-flex' style="width:100%;position:fixed;z-index:9;bottom:0px;padding:10px 10px;">
+  <form bindsubmit="btnBackSubmit" report-submit='true' style='margin-right:10px;'>
+    <button form-type='submit' style="width:100%;height:44px;border-radius:22px;line-height:44px;background:#000;color:#fff;text-align:center;font-size:14px;"><text class='iconfont icon-manage'></text></button>
+  </form>
+  <form class='weui-flex__item' bindsubmit="btnCreateSubmit" report-submit='true'>
+    <button form-type='submit' style="width:100%;height:44px;border-radius:22px;line-height:44px;background:#000;color:#fff;text-align:center;font-size:14px;">新建话题</button>
+  </form>
+</view>
+
+<scroll-view bindscrolltolower="btnLoadMore" scroll-y='true' style='width:100%;height:100%;'>
+ <view style="padding-bottom:70px;"> 
+  <view wx:if="{{list.length<=0}}" bindtap="btnLoadMore" style="width:100%;font-size:16px;color:#999;text-align:center;padding:20px;">
+              冷冷清清的什么都没有
+            </view>
+            <block wx:for="{{list}}">
+              <template is="articleitem-navitem" data="{{...item}}"></template>
+            </block>
+            <view bindtap="btnLoadMore" wx:if="{{canloadmore}}" style="width:100%;font-size:16px;color:#999;text-align:center;padding:10px;">
+              点击加载更多
+            </view>
+          </view>
+</scroll-view>

@@ -1,0 +1,5 @@
+/* pages/book/create.wxss */
+page
+{
+  background: #f2f2f2;
+}

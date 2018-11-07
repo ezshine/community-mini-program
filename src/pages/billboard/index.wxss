@@ -1,0 +1,29 @@
+/* pages/billboard/index.wxss */
+page
+{
+  background: #f2f2f2;
+}
+.fastNavItem
+{
+  width:100%;
+  height:70px;
+  text-align: center;
+  font-size:12px;
+  border: none !important;
+  border-radius: 0;
+  line-height: inherit;
+}
+.fastNavItem-hover
+{
+  background: #f2f2f2 !important;
+}
+.fastNavItem > .title
+{
+  font-size:12px;
+  margin-top:-5px;
+}
+.fastNavItem > .iconfont
+{
+  font-size:22px;
+  margin-top:5px;
+}

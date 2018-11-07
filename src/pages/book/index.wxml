@@ -1,0 +1,29 @@
+<!--/pages/book/index.wxml-->
+<import src="../../utils/template.wxml"/>
+<view style="width:100%;position:fixed;z-index:9;bottom:0px;padding:10px 20px;">
+  <view bindtap="btnScan" style="width:100%;height:44px;border-radius:22px;line-height:44px;background:#000;color:#fff;text-align:center;font-size:14px;">分享书籍</view>
+</view>
+<view class="weui-search-bar" style="background:#fff;border:none;position:fixed;z-index:9;width:100%;">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" placeholder="书名关键字" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+      <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+        <icon type="clear" size="14"></icon>
+      </view>
+    </view>
+    <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                    <icon class="weui-icon-search" type="search" size="14"></icon>
+                    <view class="weui-search-bar__text">搜索</view>
+                </label>
+  </view>
+  <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+</view>
+<view style="width:100%;display:flex;flex-wrap:wrap;padding-bottom:60px;padding-top:50px;">
+  <block wx:for="{{list}}">
+    <template is="bookitem" data="{{...item}}"></template> 
+  </block>
+  <view bindtap="btnLoadMore" wx:if="{{canloadmore}}" style="width:100%;font-size:16px;color:#999;text-align:center;padding:10px;">
+    点击加载更多
+  </view>
+</view>

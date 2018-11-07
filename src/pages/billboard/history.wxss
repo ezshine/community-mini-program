@@ -1,0 +1,8 @@
+/* pages/billboard/history.wxss */
+page
+{
+  background: #f2f2f2;
+  /* padding: 10px; */
+  box-sizing: border-box;
+  position: relative;
+}

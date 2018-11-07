@@ -1,0 +1,15 @@
+<!--pages/pk/index.wxml-->
+<import src="../../utils/template.wxml" />
+<view style="width:100%;position:fixed;bottom:0px;padding:10px 20px;">
+  <form bindsubmit="btnCreateSubmit" report-submit>
+    <button form-type='submit' style="width:100%;height:44px;border-radius:22px;line-height:44px;background:#000;color:#fff;text-align:center;font-size:14px;">新建投票</button>
+  </form>
+</view>
+<view style='padding-bottom:60px;'>
+  <block wx:for="{{list}}">
+    <template is='voteitem-navitem' data="{{...item}}"></template>
+  </block>
+  <view bindtap="btnLoadMore" wx:if="{{canloadmore}}" style="width:100%;font-size:16px;color:#999;text-align:center;padding:10px;">
+              点击加载更多
+            </view>
+</view>

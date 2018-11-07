@@ -1,0 +1,290 @@
+<template name="usercard">
+  <view bindtap="btnUserCardTap" style="width:100%;padding:5px 0px;background:#fff;color:#000;text-align:center;">
+    <view wx:if="{{showNameBar}}" style="font-size:14px;margin-bottom:10px;">{{nickname}}</view>
+    <view style="margin:auto;width:80px;height:80px;background:#333;border-radius:40px;overflow:hidden;">
+      <image src="{{headimg}}" style="width:80px;height:80px;"></image>
+    </view>
+    <view>
+      <view wx:if="{{type=='8'}}">
+        <text style='font-size:10px;padding:4px 6px;background:#00aaff;color:#fff;border-radius:5px;'>业主认证</text>
+      </view>
+      <view wx:elif="{{type=='7'}}">
+        <text style='font-size:10px;padding:4px 6px;background:#ff6600;color:#fff;border-radius:5px;'>店长认证</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<template name='articlehead'>
+  <view style="background:#fff;padding:0px 10px;padding-top:10px;width:100%;">
+    <view class="weui-flex" style="width:100%;">
+      <navigator url="/pages/me/timeline?uid={{authorid}}" style="height:40px;">
+        <image lazy-load='true' src="{{authorInfo.headimg}}" style="width:40px;height:40px;border:#f2f2f2 1px solid;border-radius:20px;"></image>
+      </navigator>
+      <view class="weui-flex__item">
+        <view style="margin-left:10px;">
+          <view style="font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+            {{authorInfo.nickname}}
+            <view id='tl_{{index}}' bindtap="btnArticleAction" class="iconfont icon-more" style="color:#999;float:right;"></view>
+          </view>
+          <view style="font-size:12px;color:#666;margin-top:-3px;">{{authorInfo.lastlogin}}登录过</view>
+        </view>
+
+      </view>
+    </view>
+  </view>
+</template>
+
+<template name='articleitem'>
+  <view style="width:100%;padding:0px 10px;padding-top:5px;background:#fff;border-bottom:#f2f2f2 1px solid;margin-bottom:10px;font-size:12px;">
+    <view style="padding:5px 0px;font-size:14px;">{{text}}</view>
+    <view wx:if="{{pics.length>0}}" style="width:100%;">
+      <view wx:if="{{pics.length==1}}">
+        <view id='li_{{index}}_0' bindtap="btnPicPreview" style="width:250px;margin-right:5px;margin-bottom:5px;">
+          <image lazy-load='true' mode="widthFix" src="{{pics[0]}}" style="width:250px;max-height:300px;"></image>
+        </view>
+      </view>
+      <view wx:if="{{pics.length>1}}" class="weui-flex" style='flex-wrap:wrap;width:300px;'>
+        <block wx:for="{{pics}}" wx:for-index="imgindex">
+          <view id="li_{{index}}_{{imgindex}}" bindtap="btnPicPreview" style="width:79px;height:79px;margin-right:5px;margin-bottom:5px;">
+            <image lazy-load='true' mode="aspectFill" src="{{item}}" style="width:79px;height:79px;"></image>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view id='tl_{{index}}' bindtap="btnShowLocation" wx:if="{{gps!=''}}" style="font-size:12px;color:#3498DB;width:100%;text-overflow:ellipsis;white-space:nowrap; overflow:hidden;">
+      {{gpscity}}{{gpscity==''?'':'·'}}{{gpsaddr}}
+    </view>
+    <view style="width:100%;height:35px;padding:0px 0px;line-height:30px;display:flex;color:#ccc;font-size:12px;">
+      <view style="width:50%;">
+        <text>发布于{{timedistance}}</text>
+      </view>
+      <view style="width:50%;">
+        <view id='tl_{{index}}' bindtap="btnLikeAction" style="float:right;">
+          <text wx:if="{{!isliked}}" class="iconfont icon-praise"></text>
+          <text wx:if="{{isliked}}" class="iconfont icon-praise_fill"></text> {{likecount}}
+        </view>
+        <view id='tl_{{index}}' bindtap="btnCommentAction" style="float:right;margin-right:20px;">
+          <text class="iconfont icon-message"></text>
+          <text wx:if="{{commentcount>0}}">{{commentcount}}</text>
+        </view>
+      </view>
+    </view>
+    <view style="width:100%;border-top:#f2f2f2 1px solid;font-size:14px;">
+      <view wx:if="{{commentcount>0}}" style='padding-left:0px;padding:5px 0px;'>
+        <block wx:for='{{commentlist}}'>
+          <view id='tl_{{item.id}}' bindlongtap="btnCommentItemAction" style="width:100%; white-space:normal;word-break:break-all;word-wrap:break-word;">
+            <text style="color:#3498DB;">{{item.authorInfo.nickname}}：</text>{{item.text}}
+          </view>
+        </block>
+      </view>
+      <view wx:if="{{showCommentInput}}" style="padding-top:5px;">
+        <view class="weui-flex" style="width:100%;height:40px;">
+          <input id="tl_{{index}}" bindinput="inputCommentTyping" class="weui-flex__flexitem" placeholder="在这里输入评论" type="text" value='{{tempCommentText}}' style="width:100%;height:30px;background:#fff;color:#333;line-height:30px;boder-radius:15px;padding:0px 10px;border:#f2f2f2 1px solid;margin-right:5px;"
+            bindconfirm="btnCommentSend" />
+          <view id="tl_{{index}}" bindtap="btnCommentSend" style="width:60px;height:30px;line-height:30px;border-radius:5px;font-size:12px;text-align:center;background:#55D98D;color:#fff;">发送</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<template name='articleitem-navitem'>
+  <navigator url="/pages/forum/detail?topicid={{id}}">
+    <view style="background:#fff;padding:0px 10px;padding-top:10px;width:100%;">
+      <view class="weui-flex" style="width:100%;">
+        <view style="height:20px;">
+          <image lazy-load='true' src="{{authorInfo.headimg}}" style="width:20px;height:20px;border:#f2f2f2 1px solid;border-radius:10px;"></image>
+        </view>
+        <view class="weui-flex__item" style="margin-left:10px;">
+          <view style="font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+            {{authorInfo.nickname}}
+          </view>
+        </view>
+        <view wx:if="{{commentcount>=5}}" style='line-height:14px;'>
+          <text style='font-size:10px;padding:4px;background:#ff0000;color:#fff;'>热门</text>
+        </view>
+      </view>
+    </view>
+    <view style="width:100%;padding:0px 10px;padding-top:5px;background:#fff;border-bottom:#f2f2f2 1px solid;margin-bottom:0px;font-size:12px;">
+      <view class='weui-flex'>
+        <view wx:if="{{pics.length==1}}" style="width:79px;height:79px;margin-right:5px;margin-bottom:5px;">
+          <image lazy-load='true' mode="aspectFill" src="{{pics[0]}}" style="width:79px;height:79px;"></image>
+        </view>
+        <view class='weui-flex__item' style="padding:5px 0px;font-size:14px;max-height:80px;overflow:hidden;text-overflow:ellipsis;">{{text}}</view>
+
+      </view>
+      <view wx:if="{{pics.length>1}}" class="weui-flex" style='width:100%;overflow:hidden;'>
+        <block wx:for="{{pics.length>4?[pics[0],pics[1],pics[2],pics[3]]:pics}}" wx:for-index="imgindex">
+          <view style="width:79px;height:79px;margin-right:5px;margin-bottom:5px;">
+            <image lazy-load='true' mode="aspectFill" src="{{item}}" style="width:79px;height:79px;"></image>
+          </view>
+        </block>
+      </view>
+      <view wx:if="{{gps!=''}}" style="font-size:12px;color:#3498DB;width:100%;text-overflow:ellipsis;white-space:nowrap; overflow:hidden;">
+        {{gpscity}}{{gpscity==''?'':'·'}}{{gpsaddr}}
+      </view>
+      <view class='weui-flex' style="width:100%;height:35px;padding:0px 0px;line-height:30px;display:flex;color:#ccc;font-size:12px;">
+        <view style="width:50%;">
+          <text>发布于{{timedistance}}</text>
+        </view>
+        <view style="width:50%;">
+          <view id='tl_{{index}}' style="float:right;">
+            <text wx:if="{{viewcount}}" class="iconfont icon-browse"></text> {{viewcount}}
+          </view>
+          <view id='tl_{{index}}' style="float:right;margin-right:20px;">
+            <text class="iconfont icon-message"></text>
+            <text wx:if="{{commentcount>0}}">{{commentcount}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </navigator>
+</template>
+
+<template name='articleitem-tuanitem'>
+  <navigator url="/pages/tuan/detail?topicid={{id}}" style='padding:10px 10px 0px 10px;'>
+    <view style="width:100%;padding:10px;background:#fff;border-bottom:#f2f2f2 1px solid;margin-bottom:0px;font-size:12px;border-radius:6px;">
+      <view class='weui-flex'>
+        <view style="width:79px;height:79px;margin-right:5px;margin-bottom:5px;">
+          <image lazy-load='true' mode="aspectFill" src="{{pics[0]}}" style="width:79px;height:79px;"></image>
+        </view>
+        <view class='weui-flex__item'>
+          <view style="padding:5px 0px;font-size:14px;height:54px;overflow:hidden;text-overflow:ellipsis;text-align:right;">{{title}}</view>
+          <view style='font-size:16px;text-align:right;'>
+            <text style='font-size:12px;'>已有 </text>{{commentcount}}
+            <text style='font-size:12px;'> 人参加</text>
+          </view>
+        </view>
+      </view>
+      <view class='weui-flex' style="width:100%;height:30px;padding:0px 0px;line-height:30px;display:flex;font-size:12px;margin-top:5px;">
+        <view class='weui-flex weui-flex__item'>
+          <view style='margin-right:4px;'>
+            <image src='{{authorInfo.headimg}}' style='width:30px;height:30px;border-radius:15px;'></image>
+          </view>
+          <view style='overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:100px;'>{{authorInfo.nickname}}</view>
+        </view>
+        <view style='color:#ccc;text-align:right;padding-right:5px;'>始于{{timedistance}}</view>
+        <view style="text-align:right;color:#999;font-size:10px;">
+          <view id='tl_{{index}}'>
+            <text style='padding:4px 10px;color:#fff;background:#{{disablecomment?"ff3300":"00aaff"}};border-radius:12px;'>{{disablecomment?"已结束":"进行中"}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </navigator>
+</template>
+
+<template name='voteitem-navitem'>
+  <navigator url='/pages/pk/detail?topicid={{id}}' style='width:100%;height:90px;border-top:#f2f2f2 1px solid;padding-top:10px;background:#fff;'>
+    <view style='width:100%;text-align:center;font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;'>{{title}}</view>
+    <view style='width:100%;text-align:center;font-size:10px;color:#999;'>{{timedistance}}发布</view>
+    <view class='weui-flex' style='padding:10px 10px 0px 10px;font-size:14px;'>
+      <view class='weui-flex__item'>
+        <view class='weui-flex' style='font-size:12px;'>
+          <view class='weui-flex__item' style='text-align:center;color:#5c9edd;'>反对{{opposecount}}</view>
+          <view class='weui-flex__item' style='text-align:center;color:#d9404a;'>支持{{supportcount}}</view>
+        </view>
+        <view style='display:flex;height:10px;border-radius:5px;overflow:hidden;'>
+          <view style='width:{{opposecount==supportcount?50:(opposecount/(opposecount+supportcount))*100}}%;background:#5c9edd;'></view>
+          <view style='width:{{opposecount==supportcount?50:(supportcount/(opposecount+supportcount))*100}}%;background:#d9404a;'></view>
+        </view>
+      </view>
+    </view>
+  </navigator>
+</template>
+
+<template name='commentitem'>
+  <view style="background:#fff;width:100%;padding:10px 10px;border-bottom:#f2f2f2 1px solid;">
+    <view class="weui-flex" style="width:100%;">
+      <navigator url="/pages/me/timeline?uid={{authorInfo.openid}}">
+        <image lazy-load='true' src="{{authorInfo.headimg}}" style="width:24px;height:24px;border:#f2f2f2 1px solid;border-radius:12px;"></image>
+      </navigator>
+      <view class="weui-flex__item" style="padding-left:10px;">
+        <view style="height:24px;line-height:24px;">
+          <view style="font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+            {{authorInfo.nickname}}
+            <view id='tl_{{id}}' bindtap="btnCommentAction" class="iconfont icon-more" style="color:#999;float:right;"></view>
+          </view>
+        </view>
+        <view id='tl_{{index}}' style="font-size:14px;" bindtap="btnReply">
+          <text wx:if='{{reply}}' style='color:#3498DB;'>回复{{reply.authorInfo.nickname}}：</text>{{text}}</view>
+        <view style="font-size:10px;color:#ccc;margin-top:5px;margin-bottom:10px;">{{timedistance}}</view>
+
+      </view>
+    </view>
+  </view>
+</template>
+
+<template name='jielongitem'>
+  <view style="background:#fff;width:100%;padding:5px 10px 0px 10px;border-bottom:#f2f2f2 1px solid;">
+    <view class="weui-flex" style="width:100%;">
+      <navigator url="/pages/me/timeline?uid={{authorInfo.openid}}">
+        <image lazy-load='true' src="{{authorInfo.headimg}}" style="width:38px;height:38px;border:#f2f2f2 1px solid;border-radius:19px;"></image>
+      </navigator>
+      <view bindtap="btnCommentAction" class="weui-flex__item" style="padding-left:10px;">
+        <view style="height:24px;line-height:24px;">
+          <view style="font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+            {{authorInfo.nickname}}
+            <view id='tl_{{id}}' style="font-size:10px;color:#999;float:right;">{{floor}}</view>
+          </view>
+        </view>
+        <view id='tl_{{index}}' style="font-size:12px;color:#999;margin-top:-5px;">
+          {{text}}</view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<template name="marketitem">
+  <navigator url="/pages/shop/goodsdetail?goodsid={{id}}" style="width:49.5%;background:#fff;margin-bottom:6px;position:relative;box-shadow:0px 1px 2px #ccc;">
+    <image lazy-load='true' mode="aspectFill" src="{{pics[0]}}" style="width:100%;height:170px;"></image>
+    <view style="width:100%;padding:0px 5px;margin-top:-5px;">
+      <view style="width:100%;font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{title}}</view>
+      <view style="width:100%;font-size:18px;color:#ff0000;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+        <text style="font-size:12px;">￥</text>{{price}}</view>
+      <view class="weui-flex">
+        <view class="weui-flex__item" style="font-size:12px;color:#999;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{gpscity}}</view>
+        <view wx:if="{{viewcount>0}}" style="font-size:12px;color:#999;text-align:right;">浏览{{viewcount}}</view>
+      </view>
+    </view>
+  </navigator>
+</template>
+
+<template name="newgoodsitem">
+  <view style="width:100%;height:100px;border-right:#ccc 1px solid;background:#fff;position:relative;">
+    <image lazy-load='true' mode="aspectFill" src="{{pics[0]}}" style="width:100%;height:100px;position:absolute;"></image>
+    <view wx:if='{{exchangecoin>0}}' style='font-size:10px;color:#fff;background:#ff0000;padding:0px 4px 2px 4px;position:absolute;z-index:7;left:5px;border-bottom-left-radius:5px;border-bottom-right-radius:5px;'>兑换
+    </view>
+    <view style="width:90%;font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#fff;text-shadow:0px 1px 1px #000;position:absolute;z-index:9;bottom:0px;left:5px;">{{title}}</view>
+    <view wx:if='{{price>0}}' style="font-size:14px;color:#fff;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;position:absolute;z-index:8;top:0px;right:5px;text-shadow:0px 1px 1px #000;">
+      <text style="font-size:12px;">￥</text>{{price}}
+    </view>
+  </view>
+</template>
+
+<template name="talentitem">
+  <navigator url="/pages/talent/goodsdetail?goodsid={{id}}" style="width:49.5%;background:#fff;margin-bottom:6px;position:relative;box-shadow:0px 1px 2px #ccc;overflow:hidden;">
+    <view wx:if="{{exchangecoin>0}}" style="padding:2px 10px 2px 6px;position:absolute;text-align:center;color:#fff;background:#ff0000;font-size:9px;border-radius:10px;border:#fff 1px solid;top:5px;right:-8px;">积分兑换</view>
+    <image lazy-load='true' mode="aspectFill" src="{{pics[0]}}" style="width:100%;height:170px;"></image>
+    <view style="width:100%;padding:0px 5px;margin-top:-5px;">
+      <view style="width:100%;font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{title}}</view>
+      <view class='weui-flex' style="width:100%;">
+        <view class="weui-flex__item" wx:if="{{price>0}}" style="margin-top:-5px;width:100%;font-size:18px;color:#ff0000;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+          <text style="font-size:12px;">￥</text>{{price}}
+          <text style="font-size:12px;">/{{unit}}</text>
+        </view>
+        <view class="weui-flex__item" wx:else style="font-size:14px;color:#ff0000;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:-1px;">价格待议</view>
+        <view style="font-size:12px;color:#999;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-family:iconfont;margin-top:2px;">
+          <text class='iconfont icon-browse' style="font-size:12px;"></text>{{viewcount}}</view>
+      </view>
+    </view>
+  </navigator>
+</template>
+
+<template name="bookitem">
+  <navigator url="/pages/book/detail?isbn={{isbn}}" style="width:33.3%;margin-bottom:6px;position:relative;padding:10px;text-align:center;box-sizing: border-box;">
+    <image lazy-load='true' mode="aspectFit" src="{{coverurl}}" style="width:100%;height:150px;"></image>
+    <view style="font-size:12px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{title}}</view>
+  </navigator>
+</template>

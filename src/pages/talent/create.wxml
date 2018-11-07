@@ -1,0 +1,57 @@
+<!--pages/forum/create.wxml-->
+<view wx:if="{{!uid}}" style='position:fixed;width:100%;height:100%;background:#f2f2f2;z-index:99999;'>
+	<button class='blockbutton yellow' bindgetuserinfo='btnGetUserInfo' open-type='getUserInfo' style='border:none;line-height:150px;width:150px;height:150px;border-radius:75px;margin-top:100px;'>登录</button>
+</view>
+<view style='width:100%;background: #fff;padding:0px 20px;'>
+  <view style="width:100%;height:10px;background:#fff;"></view>
+  <input bindinput="titleInput" style="width:100%;background: #fff;font-size:14px;height:40px;line-height:40px;" placeholder="服务标题（如家政/维修/月嫂）" value='{{titleValue}}'/>
+	<view style="width:100%;height:1px;background:#ccc;"></view>
+  <textarea maxlength="10000" bindinput='textAreaInput' placeholder="描述一下您所提供的具体服务内容，您的资历等等" name="textarea" auto-height='true' style="width:100%;background: #fff;font-size:14px;padding-top:10px;" value='{{textValue}}'/>
+	<view style="width:100%;margin-top:50px;background:#fff;">
+    <view class="weui-uploader">
+        <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="img_{{index}}">
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                    </view>
+                </block>
+            </view>
+            <view wx:if="{{files.length<maxfile}}" class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+            </view>
+        </view>
+    </view>
+  </view>
+  <view style="height:20px;"></view>
+</view>
+<view class="weui-flex" style="width:100%;margin-top:10px;background:#fff;padding:0px 20px;height:40px;">
+  <view style='width:100px;color:#666;font-size:14px;height:40px;line-height:40px;'>联系方式</view>
+  <input class="weui-flex__item" maxlength="11" bindinput="telephoneInput" type="text" style="font-size:14px;text-align:right;color:#000;height:40px;line-height:40px;" placeholder="" value='{{telephoneValue}}'/>
+</view>
+<view class="weui-flex" style="width:100%;height:80px;margin-top:10px;background:#fff;padding:0px 20px;">
+  <view style='width:120px;color:#666;font-size:14px;line-height:100px;height:100px;'>计费标准</view>
+  <input maxlength="8" bindblur="priceBlur" bindfocus="priceFocus" bindinput="priceInput" type="text" style="font-size:34px;text-align:right;height:100px;line-height:100px;color:#000;" placeholder="0.00" value='{{priceValue}}'/>
+  <view bindtap="btnUnit" style='width:100px;color:#666;font-size:14px;line-height:100px;height:100px;text-align:right;'>元/{{unit}}</view>
+</view>
+<view style='width:100%;text-align:center;background:#fff;color:#666;font-size:12px;padding-bottom:10px;'>计费设为0元将显示为待议。</view>
+<view style='width:100%;padding:20px;'>
+    <view bindtap="btnPost" style='width:100%;height:44px;line-height:44px;text-align:center;color:#fff;background:#000;font-size:14px;border-radius:22px;'>发布服务</view>
+</view>
+<view>
+  <view bindtap='btnExchangeShow' style='width:100%;font-size:12px;text-align:center;color:#000;padding:0px 20px 10px 20px;'>积分兑换（可选）<text class='iconfont icon-{{exchangeShowed?"packup":"unfold"}}'></text></view>
+  <view wx:if='{{exchangeShowed}}' style='background:#fff;'>
+  <view style='width:100%;font-size:12px;text-align:left;color:#999;padding:10px 20px 0px 20px;'>允许使用小程序内积分兑换消费，一般可按10:1（积分:人民币）来设定兑换规则。</view>
+  <view class='weui-flex' style='width:100%;font-size:40px;padding:20px 20px;line-height:40px;'>
+    <view style='font-size:12px;color:#000;'>积分</view>
+    <view class='weui-flex__item' style='text-align:center;margin-right:5px;'><input bindinput='exchangeCoinInput' value='{{exchangecoin}}' style='width:100%;height:40px;line-height:40px;font-size:40px;border-bottom:#999 1px solid;'></input></view>
+    <view style='font-size:12px;'>兑换</view>
+    <view class='weui-flex__item' style='margin-left:10px;text-align:center;'><input bindinput='exchangePriceInput' value='{{exchangeprice}}' style='width:100%;height:40px;line-height:40pxfont-size:40px;border-bottom:#999 1px solid;'></input></view>
+    <view style='font-size:12px;color:#000;'>元</view>
+  </view>
+  <view style='width:100%;font-size:12px;text-align:center;color:#999;'>兑换规则说明(20字以内)</view>
+  <view style='padding:20px;'>
+    <input bindinput='exchangeDescInput' maxlength='50' value='{{exchangedesc}}' style='width:100%;height:20px;line-height:20px;font-size:14px;border-bottom:#999 1px solid;'></input>
+  </view>
+  </view>
+</view>

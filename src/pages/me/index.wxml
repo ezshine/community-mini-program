@@ -1,0 +1,27 @@
+<!--pages/me/index.wxml-->
+<view style="padding-top:10px;">
+  <view style="width:100%;background:#fff;padding:20px 20px;">
+    <view class="weui-flex">
+      <view bindtap="btnMyDetail" style="width:70px;height:70px;">
+        <image src="{{headimg}}" style="width:70px;height:70px;border-radius:35px;"></image>
+      </view>
+      <view class="weui-flex__item" bindtap="btnMyDetail" style="width:100%;padding-left:10px;">
+        <view style="font-size:16px;margin-top:20px;">{{nickname}}</view>
+        <view style="font-size:12px;margin-top:0px;"></view>
+      </view>
+      <view style="color:#ccc;padding-top:15px;">
+        ▸
+      </view> 
+    </view>
+  </view>
+  <view style="margin-top:10px;width:100%;background:#fff;padding:0px 20px;">
+    <view bindtap="btnMyShop" style="width:100%;height:40px;line-height:40px;font-size:14px;color:#666;border-top:#eee 1px solid;">
+      我的集市<view style="float:right;"><text style="color:#ff0000;margin-right:10px;"></text> <text style="color:#ccc;">▸</text> </view>
+    </view>
+  </view>
+  <view style="margin-top:10px;width:100%;background:#fff;padding:0px 20px;">
+    <view bindtap="btnSetting" style="width:100%;height:40px;line-height:40px;font-size:14px;color:#666;">
+      关于<view style="float:right;"><text style="color:#ccc;">▸</text></view>
+    </view>
+  </view>
+</view>

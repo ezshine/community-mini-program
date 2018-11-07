@@ -1,0 +1,5 @@
+/* /pages/book/index.wxss */
+page
+{
+  background: #fff;
+}

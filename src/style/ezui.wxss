@@ -1,0 +1,55 @@
+
+.blockbutton
+{
+  border-radius:22px;
+  width:100%;
+  height:44px;
+  line-height:44px;
+  font-size:16px;
+  text-align:center;
+  background:#ccc;
+  color:#fff;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+}
+.blockbutton.gray
+{
+  background:#ccc;
+  color:#fff;
+  box-shadow:0px 10px 50px rgba(204,204,204,.5);
+  border-bottom:#aaa 2px solid;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+}
+.blockbutton.red
+{
+  background:#FF5500;
+  color:#fff;
+  box-shadow:0px 10px 50px rgba(255,85,0,.5);
+  border-bottom:#ff0000 2px solid;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+}
+.blockbutton.yellow
+{
+  background:#FFcc55;
+  color:#fff;
+  box-shadow:0px 10px 50px rgba(255,204,85,.5);
+  border-bottom:#ffaa00 2px solid;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+}
+.blockbutton.black
+{
+  background:#333333;
+  color:#fff;
+  box-shadow:0px 10px 50px rgba(51,51,51,.5);
+  border-bottom:#000000 2px solid;
+  border-top:none;
+  border-left:none;
+  border-right:none;
+}

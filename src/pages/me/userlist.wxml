@@ -1,0 +1,25 @@
+<!--pages/me/userlist.wxml-->
+<view>
+  <!-- <view style='width:100%;padding:10px;background:#fff;'>
+    <block wx:for="{{arearank}}">
+      <view class='weui-flex' style='width:100%;padding:10px;'>
+        <view class='weui-flex__item' style='font-size:14px;'>
+          {{item.name}}
+        </view>
+        <view style='font-size:14px;'>
+          {{item.count}}人
+        </view>
+      </view>
+    </block>
+  </view>
+  <view style='padding:10px;color:#ccc;text-align:center;font-size:14px;text-shadow:0px 1px 1px #fff;'>最近登录</view> -->
+  <view class="weui-flex" style="overflow:scroll;flex-wrap:wrap;padding:10px;justify-content: space-around;">
+    <block wx:for="{{loginlist}}">
+      <navigator url="/pages/me/timeline?uid={{item.openid}}" style="margin-bottom:8px;padding:0px 4px;">
+        <image mode="aspectFill" src="{{item.headimg}}" style="width:50px;height:50px;border-radius:25px;"></image>
+        <view style="font-size:12px;color:#666;width:50px;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:-5px;">{{item.nickname}}</view>
+      </navigator>
+    </block>
+  </view>
+</view>
+<view style='height:44px;'></view>

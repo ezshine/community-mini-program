@@ -1,0 +1,154 @@
+<!--pages/coincenter/index.wxml-->
+<view bindtap='btnCoinHistory' wx:if="{{result.userinfo}}" style='padding:20px 10px;background:#ffdd00;'>
+    <view class='weui-flex'>
+        <view class=''>
+            <image mode='aspectFill' src='{{result.userinfo.headimg}}' style='width:70px;height:70px;'></image>
+        </view>
+        <view style='text-align:left;margin-left:10px;text-shadow:0px 1px 1px #ffff00;'>
+            <view style='font-size:12px;margin-top:0px;'>我的积分</view>
+            <view style='font-size:24px;margin-top:-5px;'>{{result.userinfo.coin}}</view>
+            <view style='font-size:12px;margin-top:0px;'>
+                社区排名第 {{result.rank}} 位，今日增长 {{result.todayraise}}
+            </view>
+        </view>
+    </view>
+</view>
+<view style='width:100%;padding:10px;'>
+    <view style='font-size:14px;width:100%;text-align:center;'>如何获得积分</view>
+
+</view>
+<view class='weui-flex' style='background:#fff;height:60px;margin-bottom:10px;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+    <view class='weui-flex__item' style='padding:8px 10px;'>
+        <view style='font-size:16px;'>
+            每日签到+7
+        </view>
+        <view style='font-size:12px;color:#999;'>
+            连续签到加10
+        </view>
+    </view>
+    <view style='width:80px;height:60px;font-size:14px;line-height:60px;text-align:center;background:#ffcc00;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+        <form bindsubmit='btnCheckinSubmit' report-submit><button form-type='submit' plain='true' style='border:0;margin:0;padding:0;line-height:inherit;font-size:14px;'>{{result.checkined?"已签到":"签到"}}</button></form>
+    </view>
+</view> 
+<view class='weui-flex' style='background:#fff;height:60px;margin-bottom:10px;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+    <view class='weui-flex__item' style='padding:8px 10px;'>
+        <view style='font-size:16px;'>
+            分享此小程序+1
+        </view>
+        <view style='font-size:12px;color:#999;'>
+            每天最多可获得10分
+        </view>
+    </view>
+    <button open-type="share" plain style='border-radius:0;border:0;width:80px;height:60px;font-size:14px;line-height:60px;text-align:center;background:#ffcc00;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+        <view>分享</view>
+    </button>
+</view>
+<view class='weui-flex' style='background:#fff;height:60px;margin-bottom:10px;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+    <view class='weui-flex__item' style='padding:8px 10px;'>
+        <view style='font-size:16px;'>
+            微信运动打榜+5
+        </view>
+        <view style='font-size:12px;color:#999;'>
+            看你微信运动的步数在社区排第几
+        </view>
+    </view>
+    <view bindtap='btnWerun' style='width:80px;height:60px;font-size:14px;line-height:60px;text-align:center;background:#ffcc00;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+        <view>打榜</view>
+    </view>
+</view>
+<view class='weui-flex' style='background:#fff;height:60px;margin-bottom:10px;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+    <view class='weui-flex__item' style='padding:8px 10px;'>
+        <view style='font-size:16px;'>
+            发表社区生活+1
+        </view>
+        <view style='font-size:12px;color:#999;'>
+            删除扣3分，垃圾内容将导致封号
+        </view>
+    </view>
+    <view bindtap='btnForum' style='width:80px;height:60px;font-size:14px;line-height:60px;text-align:center;background:#ffcc00;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+        <view>前往</view>
+    </view>
+</view>
+<view class='weui-flex' style='background:#fff;height:60px;margin-bottom:10px;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+    <view class='weui-flex__item' style='padding:8px 10px;'>
+        <view style='font-size:16px;'>
+            消灭沙发+1
+        </view>
+        <view style='font-size:12px;color:#999;'>
+            无意义的内容将导致减分或封号
+        </view>
+    </view>
+    <view bindtap='btnForum' style='width:80px;height:60px;font-size:14px;line-height:60px;text-align:center;background:#ffcc00;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+        <view>前往</view>
+    </view>
+</view>
+<!-- <view class='weui-flex' style='background:#fff;height:60px;margin-bottom:10px;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+    <view class='weui-flex__item' style='padding:8px 10px;'>
+        <view style='font-size:16px;'>
+            分享图书+5
+        </view>
+        <view style='font-size:12px;color:#999;'>
+            分享知识分享阅读的快乐
+        </view>
+    </view>
+    <view bindtap='btnBook' style='width:80px;height:60px;font-size:14px;line-height:60px;text-align:center;background:#ffcc00;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+        <view>前往</view>
+    </view>
+</view>
+<view class='weui-flex' style='background:#fff;height:60px;margin-bottom:10px;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+    <view class='weui-flex__item' style='padding:8px 10px;'>
+        <view style='font-size:16px;'>
+            发布友邻市集+3
+        </view>
+        <view style='font-size:12px;color:#999;'>
+            无意义的内容将导致减分或封号
+        </view>
+    </view>
+    <view bindtap='btnTalent' style='width:80px;height:60px;font-size:14px;line-height:60px;text-align:center;background:#ffcc00;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+        <view>前往</view>
+    </view>
+</view> -->
+  
+<view style='width:100%;padding:10px;'>
+    <view style='font-size:14px;width:100%;text-align:center;'>积分怎么用</view>
+
+</view>
+<view class='weui-flex' style='background:#fff;height:60px;margin-bottom:10px;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+    <view class='weui-flex__item' style='padding:8px 10px;'>
+        <view style='font-size:16px;'>
+            置顶
+        </view>
+        <view style='font-size:12px;color:#999;'>
+            将市集内帖子置顶
+        </view>
+    </view>
+    <view style='width:80px;height:60px;font-size:14px;line-height:60px;text-align:center;background:#ffcc00;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+        <view>-50</view>
+    </view>
+</view> 
+<view class='weui-flex' style='background:#fff;height:60px;margin-bottom:10px;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+    <view class='weui-flex__item' style='padding:8px 10px;'>
+        <view style='font-size:16px;'>
+            发布投票帖
+        </view>
+        <view style='font-size:12px;color:#999;'>
+            创建一个投票内容进行民意调查
+        </view>
+    </view>
+    <view style='width:80px;height:60px;font-size:14px;line-height:60px;text-align:center;background:#ffcc00;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+        <view>-100</view>
+    </view>
+</view> 
+<view class='weui-flex' style='background:#fff;height:60px;margin-bottom:10px;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+    <view class='weui-flex__item' style='padding:8px 10px;'>
+        <view style='font-size:16px;'>
+            兑换
+        </view>
+        <view style='font-size:12px;color:#999;'>
+            可在友邻市集兑换消费
+        </view>
+    </view>
+    <view bindtap='btnTalent' style='width:80px;height:60px;font-size:14px;line-height:60px;text-align:center;background:#ffcc00;border-bottom:rgba(0,0,0,0.1) 2px solid;'>
+        <view>前往</view>
+    </view>
+</view> 

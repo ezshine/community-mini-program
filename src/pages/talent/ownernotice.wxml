@@ -1,0 +1,22 @@
+<!--pages/forum/create.wxml-->
+<view style='width:100%;background: #fff;padding:0px 20px;'>
+  <view style='height:20px;'></view>
+  <textarea maxlength="500" bindinput='textAreaInput' placeholder="通知内容(500字以内)" name="textarea" auto-height='true' style="width:100%;background: #fff;font-size:14px;" value='{{textValue}}'/>
+  <view style='height:60px;'></view>
+</view>
+<view class="weui-flex" style="width:100%;margin-top:10px;background:#fff;padding:0px 20px;height:40px;">
+  <view class='weui-flex__item' style='width:100px;color:#666;font-size:14px;height:40px;line-height:40px;'>测试模式</view>
+  <view style='padding-top:4px;'>
+    <switch bindchange='btnTestingSwitch' checked='{{testing}}'></switch>
+  </view>
+</view>
+<view style='width:100%;font-size:12px;color:#ff0000;padding:10px 20px;'><text>请【慎重】决定，这将【消耗您100积分】，给所有订阅通知的用户发送一条【无法撤回】的消息。
+
+开启【测试模式】不消耗积分，且仅会发给店长本人。保险起见，默认为开启。
+
+由于微信严格控制骚扰用户，所以并不保证通知都能发送成功。</text></view>
+<view style='width:100%;padding:20px;'>
+    <form bindsubmit="btnCreateSubmit" report-submit>
+  <button form-type="submit" style="width:100%;height:44px;border-radius:22px;line-height:44px;background:#000;color:#fff;text-align:center;font-size:14px;">发布通知</button>
+  </form>
+</view>

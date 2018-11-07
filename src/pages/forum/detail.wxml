@@ -1,0 +1,70 @@
+<!--pages/shop/goodsdetail.wxml-->
+<import src="../../utils/template.wxml" />
+<view wx:if="{{!result.disablecomment}}" class="weui-flex" style="width:100%;height:40px;background:#fff;position:fixed;z-index:9;bottom:0;font-size:14px;box-shadow:0px -1px 4px #eee;">
+  <input bindinput="commentInput" class="weui-flex__item" type="text" placeholder="{{commentplaceholder}}" style="padding:0px 10px;line-height:40px;height:40px;" value='{{commentstr}}'/>
+  <view bindtap="btnPostComment" style="text-align:center;width:80px;height:100%;line-height:40px;background:#55D98D;color:#fff">
+    提交
+  </view>
+</view>
+
+<scroll-view bindscrolltolower="btnLoadMore" scroll-y='true' style='width:100%;height:100%;'>
+<view style="background:#fff;padding:0px 10px;padding-top:10px;width:100%;">
+  <view class="weui-flex" style="width:100%;">
+    <navigator url="/pages/me/timeline?uid={{result.authorInfo.openid}}" style="height:40px;">
+      <image src="{{result.authorInfo.headimg}}" style="width:40px;height:40px;border:#f2f2f2 1px solid;border-radius:20px;"></image>
+    </navigator>
+    <view class="weui-flex__item">
+      <view style="margin-left:10px;position:relative;">
+        <view style="font-size:14px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+          {{result.authorInfo.nickname}}
+        </view>
+        <view style="font-size:12px;color:#666;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{result.timedistance}}发布</view>
+      </view>
+
+    </view>
+    <!-- <view bindtap='btnEdit'><text class='iconfont icon-more'></text></view> -->
+  </view>
+</view>
+<view style="width:100%;background:#fff;padding:10px;font-size:14px;">
+  <view>
+    <view style="margin-bottom:5px;">
+      <text>{{result.text}}</text>
+    </view>
+    <block wx:for='{{result.vids}}'>
+      <video src='{{item}}' style='width:100%;'></video>
+    </block>
+    <block wx:for='{{result.pics}}'>
+      <image id='li_{{index}}' bindtap='btnPicPreview' mode="widthFix" src="{{item}}" style="width:100%;"></image>
+    </block>
+  </view>
+  
+  <view class="weui-flex" style='font-family:iconfont;font-size:14px;'>
+    <view bindtap='btnShowLocation' wx:if="{{result.gps!=''}}" style="color:#3498DB;text-overflow:ellipsis;white-space:nowrap; overflow:hidden;">
+              {{result.gpscity}}{{result.gpscity==''?'':'·'}}{{result.gpsaddr}}
+            </view>
+  </view>
+  <view bindtap="btnLikeAction" style="color:#fff;width:80px;height:80px;background:#ff0066;text-align:center;border-radius:40px;margin:0 auto;margin-top:10px;padding-top:10px;"><view class='iconfont icon-praise{{result.isliked?"_fill":""}}' style='font-size:28px;'></view><view style='font-size:12px;margin-top:-10px;'>{{result.likecount}}</view></view>
+  <view class='weui-flex'>
+      <view class='weui-flex__item' style="color:#999;margin-right:20px;">浏览{{result.viewcount}}</view>
+      <view>
+        <text bindtap="btnEdit" style="font-size:12px;color:#999;">操作</text>
+      </view>
+    </view>
+</view>
+<view wx:if="{{!result.disablecomment}}"  style="width:100%;margin-top:10px;background:#fff;">
+  <view style='width:100%;font-size:14px;font-weight:bold;padding:10px;'>评论<text style="font-weight:normal;" wx:if="{{result.commentcount>0}}">{{result.commentcount}}</text></view>
+  <view style="width:100%;height:1px;background:#f2f2f2;"></view>
+  <view>
+    <view wx:if="{{result.commentcount<=0}}" style='width:100%;height:100px;line-height:100px;text-align:center;font-size:12px;color:#999;'>你长得这么好看，抢个沙发可好</view>
+    <view wx:else style="font-size:14px;">
+      <block wx:for="{{commentlist}}">
+        <template is="commentitem" data="{{...item}}"></template>
+      </block>
+      <view bindtap="btnLoadMore" wx:if="{{canloadmore}}" style="width:100%;font-size:16px;color:#999;text-align:center;padding:10px;">
+              点击加载更多
+        </view>
+    </view>
+  </view>
+</view>
+<view style="height:60px;"></view>
+</scroll-view>

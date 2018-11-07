@@ -1,0 +1,55 @@
+<!--pages/forum/create.wxml-->
+<view style='width:100%;background: #fff;padding:0px 20px'>
+	<textarea bindinput='textAreaInput' maxlength="10000" placeholder="添加接龙说明" name="textarea" auto-height='true' style="width:100%;background: #fff;font-size:14px;padding-top:20px;" />
+	<view style="width:100%;margin-top:20px;background:#fff;">
+    <view class="weui-uploader">
+        <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="previewImage" id="img_{{index}}">
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                    </view>
+                </block>
+            </view>
+            <view wx:if="{{files.length<maxfile}}" class="weui-uploader__input-box">
+                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+            </view>
+        </view>
+    </view>
+  </view>
+  <view style="width:100%;height:1px;background:#ccc;margin-top:10px;"></view>
+  <view bindtap='btnChooseLocation' style="width:100%;height:40px;line-height:40px;font-size:14px;">
+    <text style='float:left;width:250px;text-overflow:ellipsis;white-space:nowrap; overflow:hidden; '>{{gpsaddr}}</text><view class="weui-cell__ft weui-cell__ft_in-access" style='margin-top:20px;float:right;'></view>
+  </view>
+</view>
+
+<view style='width:100%;padding:0px 20px 10px 20px;margin-top:10px;background:#fff;'>
+  <view style='width:100%;height:44px;line-height:44px;font-size:14px;'>接龙商品</view>
+  <block wx:for='{{menu}}'>
+    <view class='weui-flex' style='font-size:14px;margin-bottom:10px;'>
+      <view class='weui-flex__item' style='padding-right:5px;'>
+        <input type='text' disabled='true' placeholder='项目名称' style='border:#ccc 1px solid;border-radius:5px;padding:0px 10px 0px 10px;' value='{{item.name}}'></input>
+      </view>
+      <view class='weui-flex' style='padding-right:5px;width:100px;'>
+        <input type='number' disabled='true' placeholder='售价' style='border:#ccc 1px solid;border-radius:5px;padding:0px 10px 0px 10px;' value='{{item.price}}'></input>
+      </view>
+      <view>
+        <view id="{{index}}" bindtap='btnDelMenuItem' style='font-size:12px;padding:4px 10px;background:#ff3300;border-radius:5px;color:#fff;'>删除</view>
+      </view>
+    </view>
+  </block>
+  <view wx:if="{{menu.length<=4}}" class='weui-flex' style='font-size:14px;'>
+    <view class='weui-flex__item' style='padding-right:5px;'>
+      <input bindinput='inputAddItemName' type='text' placeholder='项目名称' style='border:#ccc 1px solid;border-radius:5px;padding:0px 10px 0px 10px;' value='{{addItemName}}'></input>
+    </view>
+    <view class='weui-flex' style='padding-right:5px;width:100px;'>
+      <input bindinput='inputAddItemPrice' type='number' placeholder='售价' style='border:#ccc 1px solid;border-radius:5px;padding:0px 10px 0px 10px;' value='{{addItemPrice}}'></input>
+    </view>
+    <view>
+      <view bindtap='btnAddMenuItem' style='font-size:12px;padding:4px 10px;background:#00aaff;border-radius:5px;color:#fff;'>添加</view>
+    </view>
+  </view>
+</view>
+<view style='width:100%;padding:20px;'>
+    <view bindtap="btnPost" style='width:100%;height:44px;line-height:44px;text-align:center;color:#fff;background:#000;font-size:14px;border-radius:22px;'>确定发布</view>
+</view>

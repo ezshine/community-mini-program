@@ -1,0 +1,134 @@
+<!--pages/billboard/index.wxml-->
+<import src="../../utils/template.wxml" />
+ <view wx:if="{{!isopened}}" style="position:fixed;z-index:999;width:100%;height:100%;padding:0px;">
+  <form bindsubmit="btnOpenSubmit" report-submit>
+    <button form-type='submit' plain='true' style="width:100%;height:100%;background:rgba(0,0,0,0);border:#ccc 0px solid;padding:0px;"></button>
+  </form>
+</view> 
+<scroll-view bindscrolltolower="btnLoadMore" scroll-y='true' style='width:100%;height:100%;'>
+<view style="padding:0px;">
+  <view style='margin-bottom:10px;'>
+    <view wx:if="{{weather}}" style='width:100%;background:#fff;color:#000;padding:2px;text-align:center;font-size:12px;'>
+      <text style='color:{{nowweather.aqibgcolor}};margin-right:2px;'>◆</text><text>空气指数{{nowweather.aqi}}：{{nowweather.aqistr}}</text>
+    </view>
+    <view bindtap="btnWelcomeCopy" class='weui-flex' style="justify-content: space-between;align-items: center;width:100%;background:#fff;padding-top:5px;">
+      <block wx:for='{{weather}}'>
+        <view class="weui-flex__item" style="font-size:12px;text-align:center;background:#fff;border-right:#f2f2f2 1px solid;padding-bottom:8px;">
+          <view style="font-size:10px;overflow:hidden;">
+            <text style='margin-right:5px;'>{{item.week}}</text>
+            <text style=''>{{xianhao[index]}}</text>
+          </view>
+          <view style="font-size:14px;padding:2px;">
+            {{item.type}}
+          </view>
+          <view style="font-size:10px;">
+            <text style='margin-right:5px;'>↑{{item.high}}</text>↓{{item.low}}
+          </view>
+        </view>
+      </block>
+    </view>
+    <view id='{{billboardlist[0].id}}' bindtap="btnHistory" style="width:100%;padding:0px 10px;border-top:#f2f2f2 1px solid;background:#fff;">
+      <view style="font-size:12px;font-weight:bold;text-align:center;">
+        <text wx:if="{{!noticereaded}}" style="color:#ff0000">[公告]{{billboardlist[0].title}}</text>
+        <text wx:else style="color:#999;font-size:12px;">查看往期公告</text>
+      </view>
+    </view>
+  </view>
+  <swiper wx:if="{{topbanner}}" autoplay='true' circular='true' indicator-dots='{{topbanner.length>1}}' style='width:100%;height:100px;margin-bottom:0px;background:#fff;margin-top:-10px;'>
+    <block wx:for="{{topbanner}}">
+      <swiper-item style='width:100%;'>
+        <form bindsubmit='btnTopBannerSubmit' report-submit='true' id='{{index}}' style='width:100%;height:100px'>
+          <button form-type='submit' plain='true' style='width:100%;height:100px;border:none;padding:0;border-radius:0;'>
+          <image mode='aspectFill' src='{{item.picurl}}' style='width:100%;height:100px;'></image>
+          </button>
+        </form>
+      </swiper-item>
+    </block>
+  </swiper>
+  <swiper style='margin-bottom:10px;background:#fff;height:{{fastNavCount/4*70}}px;' indicator-dots='{{fastnav.length/fastNavCount>1}}'>
+    <block wx:for="{{fastnav.length/fastNavCount}}" wx:for-index="i">
+    <swiper-item>
+  <view style="display:flex;flex-wrap:wrap;">
+    <block wx:for="{{fastNavCount}}" wx:for-index="j">
+      <form wx:if="{{fastnav[i*fastNavCount+j]}}" id='{{i*fastNavCount+j}}' bindsubmit='btnFastNavSubmit' report-submit='true' style='width:25%;position:relative;'>
+      <button form-type='submit' plain='true' class='fastNavItem' hover-class='fastNavItem-hover'>
+        <view wx:if="{{fastnav[i*fastNavCount+j].badge}}" style='padding:2px;color:#fff;font-size:9px;background:#ff0000;position:absolute;z-index:2;right:0px;top:0px;'>{{fastnav[i*fastNavCount+j].badge}}</view>
+        <view class='iconfont {{fastnav[i*fastNavCount+j].icon}}'></view>
+        <view>{{fastnav[i*fastNavCount+j].title}}</view>
+      </button>
+      </form>
+    </block>
+  </view>
+  </swiper-item>
+  </block>
+</swiper>
+
+  <form wx:if="{{fastnav.length>=8}}" bindsubmit='btnLoginListSubmit' report-submit>
+    <button form-type='submit' plain='true' style='padding:0;border:0;margin:0;text-align:left;border-radius:0px;'>
+      <view style="width:100%;background:#fff;padding:0px 10px;margin-bottom:10px;">
+        <view style="font-size:14px;font-weight:bold;">在线居民
+          <view style="font-size:12px;color:#999;float:right;">总计：{{totalmembers}}</view>
+        </view>
+
+        <view class="weui-flex" style="overflow:scroll;">
+          <block wx:for="{{loginlist}}">
+            <view style="margin-right:10px;">
+              <image mode="aspectFill" src="{{item.headimg}}" style="width:50px;height:50px;border-radius:25px;"></image>
+              <view style="font-size:12px;color:#666;width:50px;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:-20px;">{{item.nickname}}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </button>
+  </form>
+  <view><view class='iconfont icon-volume'></view></view>
+
+  <form bindsubmit='btnTalentSubmit' report-submit>
+    <button wx:if='{{newgoods}}' form-type='submit' plain='true' style="border:0;width:100%;line-height:inherit;background:#fff;margin:0;margin-bottom:10px;padding:0;text-align:left;border-radius:0;">
+      <view style="font-size:14px;font-weight:bold;padding:0px 10px;display:none;">友邻市集
+      </view>
+      <view class="weui-flex" style="overflow:hidden;">
+        <block wx:for="{{newgoods}}">
+          <view style='width:33.3%;'>
+            <template is="newgoodsitem" data="{{...item}}"></template>
+          </view>
+        </block>
+      </view>
+    </button>
+  </form>
+
+  <!-- <view style='width:100%;margin-bottom:10px;background:#fff;padding:0px 10px;'>
+    <swiper style='width:100%;height:24px;' autoplay='true' circular='true'>
+    <block wx:for="{{newcomments}}">
+      <swiper-item>
+        <view class='weui-flex'>
+          <view style='margin-right:4px;'><image mode='aspectFill' style='width:24px;height:24px;border-radius:12px;' src='{{item.authorInfo.headimg}}'></image></view>
+          <view class='weui-flex__item' style='font-size:12px;line-height:24px;'>
+            {{item.text}}
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+    </swiper>
+  </view> -->
+  <view wx:if='{{newvotes.length>0}}' style='width:100%;background:#fff;margin-bottom:10px;'>
+    <swiper style='width:100%;height:100px;' autoplay='true' circular='true'>
+    <block wx:for='{{newvotes}}'>
+      <swiper-item>
+        <template is='voteitem-navitem' data="{{...item}}"></template>
+      </swiper-item>
+    </block>
+    </swiper>
+  </view>
+
+  <view style="width:100%;">
+    <block wx:for="{{list}}">
+      <template is="articleitem-navitem" data="{{...item}}"></template>
+    </block>
+    <view wx:if="{{list.length>0}}" bindtap="btnForum" style="width:100%;font-size:16px;color:#999;text-align:center;padding:10px;">
+      更多社区话题
+    </view>
+  </view>
+  <view></view>
+</view>
+</scroll-view>
