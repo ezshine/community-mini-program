@@ -6,7 +6,7 @@
 ![封面图](https://github.com/ezshine/community-mini-program/blob/master/thumb.jpg)
 
 ### 说明
-		因为参与到业委会的组织和建立，于2017年6月份左右策划，本人独立设计并开发完成上线第一版社区，后边陆陆续续有新增，修改，完善。得到了本小区业主们和广大网友的好评和支持。		
+#####因为参与到业委会的组织和建立，于2017年6月份左右策划，本人独立设计并开发完成上线第一版社区，后边陆陆续续有新增，修改，完善。得到了本小区业主们和广大网友的好评和支持。		
 
 ### 功能介绍
 ![缩略图](https://github.com/ezshine/community-mini-program/blob/master/thumbs.jpg)
