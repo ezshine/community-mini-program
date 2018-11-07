@@ -3,13 +3,13 @@
 
 开发者：[大帅(ezshine)](https://www.zhihu.com/people/ezshine) 
 
-![封面图](https://github.com/ezshine/community-mini-program/thumb.jpg)
+![封面图](https://github.com/ezshine/community-mini-program/blob/master/thumb.jpg)
 
 ##说明
 		因为参与到业委会的组织和建立，于2017年6月份左右策划，本人独立设计并开发完成上线第一版社区，后边陆陆续续有新增，修改，完善。得到了本小区业主们和广大网友的好评和支持。
 
 ##功能介绍
-![缩略图](https://github.com/ezshine/community-mini-program/thumbs.jpg)
+![缩略图](https://github.com/ezshine/community-mini-program/blob/master/thumbs.jpg)
 
 ##-》公告
 		除了小程序内的提示外，可通过小程序模板消息向全体用户发送通知。
@@ -36,5 +36,5 @@
 			*微信小程序的审核非常严格，如果没有互联网增值业务许可证，你是无法上架一个社区小程序的。作者本人也没有这个证，但在源码中贴心的设计了绕过审核的开关，但依旧不保证能过审，如果你在审核中遇到了一些问题，也可以咨询本人。
 
 如果你觉得这份源码对您有些帮助，可以通过以下方式捐助作者，请作者吃顿饭，抽包烟，喝杯咖啡。
-![捐助](https://github.com/ezshine/community-mini-program/donate.jpg)
+![捐助](https://github.com/ezshine/community-mini-program/blob/master/donate.jpg)
 
